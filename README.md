@@ -1,4 +1,4 @@
-# RabbitMQ-docker-PUB-and-SUB-js
+# RabbitMQ docker messaging in js
 An example of hello world using docker
 based on https://www.rabbitmq.com/tutorials/tutorial-one-javascript-stream
 
