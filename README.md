@@ -1,6 +1,6 @@
 # RabbitMQ docker messaging in js
 An example of hello world using docker
-based on https://www.rabbitmq.com/tutorials/tutorial-one-javascript-stream
+based on https://www.rabbitmq.com/tutorials/tutorial-one-javascript
 
 Primero iniciamos el contenedor
 ```bash
