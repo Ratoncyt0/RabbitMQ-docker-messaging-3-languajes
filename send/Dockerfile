@@ -13,7 +13,5 @@ RUN npm install amqplib
 COPY package.json .
 COPY send.js .
 
-# Nos aseguramos que runsend tenga permisos de ejecucion
-
 # Nos aseguramos que send.js se ejecute cada vez que se inicia el contenedor
 CMD ["node", "send.js"]
