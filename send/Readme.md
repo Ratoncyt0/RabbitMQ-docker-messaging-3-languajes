@@ -1,3 +1,14 @@
-Como construir la imagen y utilizar el contenedor
+# Como construir la imagen y enviar mensajes
 
-docker run -e IP="192.168.234.38" -e MSG="Hola desde js" --rm --name send_node -it --entrypoint /bin/bash send_node
+## Construccion de la imagen
+```bash
+docker build -t node_send .
+```
+Ejecutar en el directorio actual
+
+## ¿Como envio un mensaje?
+
+```bash
+docker run -d -e IP="192.168.1.1" -e MSG="holi" --rm node_send
+```
+Reemplaza la ip 192.168.1.1 por la ip de la maquina que este ejecutando RabbitMQ, y el hola mundo por el mensaje deseado. La etiqueta --rm se encargara de desaparecer al contenedor una vez enviado el mensaje

@@ -1,17 +1,19 @@
-# Use the official Node.js image
-FROM node:latest
+FROM node:16
 
-# Set the working directory inside the container
+# Creamos el directorio
+RUN mkdir /usr/src/app
+
+# Establecemos el directorio de trabajo
 WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json (if available) into the container
-COPY package*.json ./
+# Instalamos las dependencias necesarias, na mas amqplib
+RUN npm install amqplib
 
-# Install the dependencies (including amqplib)
-RUN npm install
+# Copiamos los archivos dentro del contenedor
+COPY package.json .
+COPY recieve.js .
 
-# Copy the rest of the application code (e.g., dat.js) into the container
-COPY dat.js .
+# Nos aseguramos que runsend tenga permisos de ejecucion
 
-# Run the dat.js file with Node.js
-CMD ["node", "dat.js"]
+# Nos aseguramos que send.js se ejecute cada vez que se inicia el contenedor
+CMD ["node", "recieve.js"]

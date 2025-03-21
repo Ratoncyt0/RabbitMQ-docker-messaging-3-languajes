@@ -10,9 +10,10 @@ WORKDIR /usr/src/app
 RUN npm install amqplib
 
 # Copiamos los archivos dentro del contenedor
-COPY . .
+COPY package.json .
+COPY send.js .
 
-# Aseguramos que el archivo runsend (sh) tenga permisos de ejecución
-RUN chmod +x ./runsend
+# Nos aseguramos que runsend tenga permisos de ejecucion
 
-CMD [ "/usr/src/app/runsend" ]
+# Nos aseguramos que send.js se ejecute cada vez que se inicia el contenedor
+CMD ["node", "send.js"]
