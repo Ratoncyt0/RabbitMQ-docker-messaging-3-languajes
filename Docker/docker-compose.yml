@@ -18,7 +18,7 @@ services:
     image: 'node_recieve'
     environment:
       - MSG="Hola mundo desde js"
-      - IP=127.0.0.1
+      - IP=localhost
 
   Python-subscribe:
     container_name: py-subs
@@ -29,7 +29,7 @@ services:
     container_name: go-rabbitmq-consumer
     working_dir: /app
     volumes:
-      - ./go-consumer:/app  # Se monta la carpeta correcta dentro del contenedor
+      - ./GO/go-rabbitmq/go-consumer:/app  # Se monta la carpeta correcta dentro del contenedor
     command: go run consumer.go
     environment:
       - RABBITMQ_HOST=rabbitmq
@@ -60,7 +60,7 @@ services:
     container_name: go-rabbitmq-producer
     working_dir: /app
     volumes:
-      - ./go-producer:/app  # Se monta la carpeta correcta dentro del contenedor
+      - ./GO/go-rabbitmq/go-producer:/app  # Se monta la carpeta correcta dentro del contenedor
     command: go run producer.go
     environment:
       - RABBITMQ_HOST=rabbitmq
