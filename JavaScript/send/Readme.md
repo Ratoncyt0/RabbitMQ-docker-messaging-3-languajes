@@ -9,6 +9,6 @@ docker build -t node_send .
 ## ¿Como envio un mensaje?
 
 ```bash
-docker run -d -e IP="127.0.0.1" -e MSG="Hola Mundo desde js" --rm node_send
+docker run -e IP="172.17.0.1" -e MSG="Hola Mundo desde js" --rm node_send
 ```
-Reemplaza la ip 192.168.1.1 por la ip de la maquina que este ejecutando RabbitMQ, y el hola mundo por el mensaje deseado. La etiqueta --rm se encargara de desaparecer al contenedor una vez enviado el mensaje
+Reemplaza la ip 172.17.0.1 (Localhost para entornos docker) por la ip de la maquina que este ejecutando RabbitMQ, y el hola mundo por el mensaje deseado. La etiqueta --rm se encargara de desaparecer al contenedor una vez enviado el mensaje

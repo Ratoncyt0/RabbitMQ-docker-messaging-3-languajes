@@ -4,9 +4,9 @@
 * Zamir Francisco Granados Peñaloza - 2211888
 
 
-# RabbitMQ docker messaging in js
+# RabbitMQ docker messaging en tres lenguajes (js, py, GO)
 An example of hello world using docker
-based on https://www.rabbitmq.com/tutorials/tutorial-one-javascript
+based on https://www.rabbitmq.com/tutorials/
 
 ## Primero iniciamos el contenedor de RabbitMQ
 ```bash

@@ -3,7 +3,7 @@
 var amqp = require('amqplib/callback_api');
 
 // Variables de ambiente
-const IP = process.env.IP || '10.6.101.120' // ip de la maquina por default para la version red
+const IP = process.env.IP || '172.17.0.1' // ip de la maquina por default para la version red
 
 
 amqp.connect(`amqp://${IP}`, function(error0, connection) {

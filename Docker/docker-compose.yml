@@ -18,7 +18,7 @@ services:
     image: 'node_recieve'
     environment:
       - MSG="Hola mundo desde js"
-      - IP=localhost
+      - IP=172.17.0.1
 
   Python-subscribe:
     container_name: py-subs
@@ -46,7 +46,7 @@ services:
     image: 'node_send'
     environment:
       - MSG="Hola mundo desde js"
-      - IP=127.0.0.1
+      - IP=172.17.0.1
 
   Python-publisher:
     container_name: py-pub
