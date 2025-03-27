@@ -1,18 +1,37 @@
+#!/usr/bin/env python
+import os
+import sys
+
 import pika
 
-# Establecer la conexión con RabbitMQ
-connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))  # Nombre del contenedor RabbitMQ
-channel = connection.channel()
 
-# Declarar la cola desde la que se va a consumir los mensajes
-channel.queue_declare(queue='hello')
+def main():
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host="localhost"),
+    )
+    channel = connection.channel()
 
-# Método de callback para manejar los mensajes recibidos
-def callback(ch, method, properties, body):
-    print(f" [x] Received {body.decode()}")
+    channel.queue_declare(queue="hello")
 
-# Consumir los mensajes de la cola
-channel.basic_consume(queue='hello', on_message_callback=callback, auto_ack=True)
+    def callback(ch, method, properties, body):
+        print(f" [x] Received {body.decode()}")
 
-print(' [*] Waiting for messages. To exit press CTRL+C')
-channel.start_consuming()
+    channel.basic_consume(
+        queue="hello",
+        on_message_callback=callback,
+        auto_ack=True,
+    )
+
+    print(" [*] Waiting for messages. To exit press CTRL+C")
+    channel.start_consuming()
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("Interrupted")
+        try:
+            sys.exit(0)
+        except SystemExit:
+            os._exit(0)

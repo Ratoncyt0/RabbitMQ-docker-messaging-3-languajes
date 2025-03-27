@@ -10,7 +10,7 @@ based on https://www.rabbitmq.com/tutorials/tutorial-one-javascript
 
 ## Primero iniciamos el contenedor de RabbitMQ
 ```bash
-docker run -it --rm --name rabbitmq -p 5552:5552 -p 15672:15672 -p 5672:5672 -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS='-rabbitmq_stream advertised_host localhost' rabbitmq:4-management
+docker run -d -it --rm --name rabbitmq -p 5552:5552 -p 15672:15672 -p 5672:5672 -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS='-rabbitmq_stream advertised_host localhost' rabbitmq:4-management
 ```
 ## Recomendado (Activar los servicios de streamming)
 ```bash

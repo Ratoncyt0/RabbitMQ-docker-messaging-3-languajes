@@ -35,7 +35,7 @@ services:
 
   GO-publisher:
     container_name: go-pub
-    image: ''
+    image: 'go-producer'
     environment:
       - MSG="Hola mundo desde go"
       - IP=127.0.0.1
