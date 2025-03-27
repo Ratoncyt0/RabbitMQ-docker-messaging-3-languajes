@@ -4,34 +4,37 @@ services:
 
   # Subscribe default
   JavaScript-subscribe:
-    container_name: recieveJS
+    container_name: js-subs
     image: 'node_recieve'
+    environment:
+      - MSG="Hola mundo desde js"
+      - IP=127.0.0.1
 
   Python-subscribe:
-    container_name: consumerPython
+    container_name: py-subs
     image: 'python-consumer'
 
-  GO_subscribe:
-    container-name: consumerGo
+  GO-subscribe:
+    container_name: go-subs
     image: 'go-consumer:latest'
 
   # Publish default
   JavaScript-publisher:
-    container-name: js_publish_default
+    container_name: js-pub
     image: 'node_send'
     environment:
       - MSG="Hola mundo desde js"
       - IP=127.0.0.1
 
-python-publisher:
-    container-name: python-pub
+  Python-publisher:
+    container_name: py-pub
     image: 'python-producer'
     environment:
       - MSG="Hola mundo desde py"
       - IP=127.0.0.1
 
-GO-publisher:
-    container-name: go-pub
+  GO-publisher:
+    container_name: go-pub
     image: ''
     environment:
       - MSG="Hola mundo desde go"
