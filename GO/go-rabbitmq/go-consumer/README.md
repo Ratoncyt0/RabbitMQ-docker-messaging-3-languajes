@@ -1,10 +1,10 @@
-# ¿Como construir la imagen docker?
+# ¿Como usar el consumer?
+Es necesario inicializar el compose
 
 ```bash
-docker build -t go-consumer .
+docker compose up -d
 ```
-
-## Para desplegar el consumidor
+Para verificar las salidas del consumidor
 ```bash
-docker run --rm go-consumer
+docker compose logs -f consumer
 ```
