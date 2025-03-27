@@ -1,5 +1,5 @@
 # Usar una imagen de Go
-FROM golang:1.20-alpine
+FROM golang:1.22
 
 # Establecer el directorio de trabajo
 WORKDIR /app

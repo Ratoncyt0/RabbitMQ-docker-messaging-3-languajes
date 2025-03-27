@@ -1,6 +1,16 @@
-version: "3.2"
+version: "3.8"
 
 services:
+  #RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
 
   # Subscribe default
   JavaScript-subscribe:
@@ -15,8 +25,20 @@ services:
     image: 'python-consumer'
 
   GO-subscribe:
-    container_name: go-subs
-    image: 'go-consumer:latest'
+    image: golang:1.22
+    container_name: go-rabbitmq-consumer
+    working_dir: /app
+    volumes:
+      - ./go-consumer:/app  # Se monta la carpeta correcta dentro del contenedor
+    command: go run consumer.go
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - QUEUE_NAME=test_queue
+    depends_on:
+      - rabbitmq
 
   # Publish default
   JavaScript-publisher:
@@ -34,8 +56,17 @@ services:
       - IP=127.0.0.1
 
   GO-publisher:
-    container_name: go-pub
-    image: 'go-producer'
+    image: golang:1.22
+    container_name: go-rabbitmq-producer
+    working_dir: /app
+    volumes:
+      - ./go-producer:/app  # Se monta la carpeta correcta dentro del contenedor
+    command: go run producer.go
     environment:
-      - MSG="Hola mundo desde go"
-      - IP=127.0.0.1
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=guest
+      - RABBITMQ_PASS=guest
+      - QUEUE_NAME=test_queue
+    depends_on:
+      - rabbitmq

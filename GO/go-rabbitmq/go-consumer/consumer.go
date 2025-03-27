@@ -3,54 +3,49 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
-	"github.com/rabbitmq/amqp091-go" // Importar el paquete amqp091-go correctamente
+	"github.com/rabbitmq/amqp091-go"
 )
 
 func main() {
+	// Obtener variables de entorno
+	rabbitmqHost := os.Getenv("RABBITMQ_HOST")
+	rabbitmqPort := os.Getenv("RABBITMQ_PORT")
+	rabbitmqUser := os.Getenv("RABBITMQ_USER")
+	rabbitmqPass := os.Getenv("RABBITMQ_PASS")
+	queueName := os.Getenv("QUEUE_NAME")
+
 	// Conectar a RabbitMQ
-	conn, err := amqp091.Dial("amqp://guest:guest@localhost:5672/") // Usar amqp091 para referirse al paquete
+	connStr := fmt.Sprintf("amqp://%s:%s@%s:%s/", rabbitmqUser, rabbitmqPass, rabbitmqHost, rabbitmqPort)
+	conn, err := amqp091.Dial(connStr)
 	if err != nil {
-		log.Fatalf("Error de conexión: %s", err)
+		log.Fatalf("Error de conexión a RabbitMQ: %s", err)
 	}
 	defer conn.Close()
 
-	// Crear un canal
 	ch, err := conn.Channel()
 	if err != nil {
-		log.Fatalf("Error de canal: %s", err)
+		log.Fatalf("Error al abrir un canal: %s", err)
 	}
 	defer ch.Close()
 
 	// Declarar la cola
-	q, err := ch.QueueDeclare(
-		"hello", // Nombre de la cola
-		false,   // Durable
-		false,   // AutoDelete
-		false,   // Exclusive
-		false,   // NoWait
-		nil,     // Argumentos
-	)
+	_, err = ch.QueueDeclare(queueName, false, false, false, false, nil)
 	if err != nil {
 		log.Fatalf("Error al declarar la cola: %s", err)
 	}
 
-	// Consumir el mensaje
-	msgs, err := ch.Consume(
-		q.Name, // Nombre de la cola
-		"",     // Consumer tag
-		true,   // AutoAck
-		false,  // Exclusive
-		false,  // NoLocal
-		false,  // NoWait
-		nil,    // Argumentos
-	)
+	// Recibir mensajes
+	msgs, err := ch.Consume(queueName, "", true, false, false, false, nil)
 	if err != nil {
-		log.Fatalf("Error al consumir el mensaje: %s", err)
+		log.Fatalf("Error al recibir mensajes: %s", err)
 	}
 
-	// Procesar los mensajes recibidos
+	log.Println("[*] Esperando mensajes. Presiona CTRL+C para salir.")
+
+	// Leer mensajes de la cola
 	for msg := range msgs {
-		fmt.Printf("[x] Recibido: %s\n", msg.Body)
+		log.Printf("[x] Recibido: %s", msg.Body)
 	}
 }
