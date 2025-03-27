@@ -1,0 +1,38 @@
+version: "3.2"
+
+services:
+
+  # Subscribe default
+  JavaScript-subscribe:
+    container_name: recieveJS
+    image: 'node_recieve'
+
+  Python-subscribe:
+    container_name: consumerPython
+    image: 'python-consumer'
+
+  GO_subscribe:
+    container-name: consumerGo
+    image: 'go-consumer:latest'
+
+  # Publish default
+  JavaScript-publisher:
+    container-name: js_publish_default
+    image: 'node_send'
+    environment:
+      - MSG="Hola mundo desde js"
+      - IP=127.0.0.1
+
+python-publisher:
+    container-name: python-pub
+    image: 'python-producer'
+    environment:
+      - MSG="Hola mundo desde py"
+      - IP=127.0.0.1
+
+GO-publisher:
+    container-name: go-pub
+    image: ''
+    environment:
+      - MSG="Hola mundo desde go"
+      - IP=127.0.0.1
