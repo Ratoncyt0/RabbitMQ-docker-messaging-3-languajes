@@ -6,7 +6,7 @@ Para crear una imagen con el dockerfile para este apartado PRODUCTOR:
 ```bash
 docker build -t sendpy .
 ```
-2. Para enviar mensajes a cualquier maquina usando la imagen: 
+2. Para enviar mensajes a la maquina usando la imagen: 
 ```bash
 python send.py
 ```
