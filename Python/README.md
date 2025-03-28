@@ -16,7 +16,7 @@ pip install pika
 
 # Creamos una carpeta "Consumidor y Productor"
 
-Productor:
+CARPETA Productor:
 ```bash
 mkdir productor
 ``` 
@@ -29,8 +29,9 @@ nano Dockerfile
 ```bash
 nano send.py
 ```
-# |||||||
-Consumidor:
+
+
+CARPETA Consumidor:
 ```bash
 mkdir consumidor
 ```
@@ -43,3 +44,5 @@ nano Dockerfile
 ```bash
 nano receive.py
 ```
+
+
