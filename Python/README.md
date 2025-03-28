@@ -20,4 +20,10 @@ consumidor:
 ```bash
 mkdir consumidor
 ```
+# Carpeta Productor 
+1. Creamos un --> nano Dockerfile
+2. Creamos un --> nano send.py
 
+# Carpeta Consumidor 
+1. Creamos un --> nano Dockerfile
+2. Creamos un --> nano receive.py
