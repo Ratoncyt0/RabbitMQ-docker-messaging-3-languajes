@@ -15,16 +15,12 @@ pip install pika
 ```
 
 # Creamos una carpeta "Consumidor y Productor"
-productor:
+
+Productor:
 ```bash
 mkdir productor
 ``` 
-consumidor:
-```bash
-mkdir consumidor
-```
-Dentro de cada carpeta creamos los sigueintes archivos: 
-
+Dentro de esta carpeta productor:
 1. Creamos un --> nano Dockerfile con su respectivo codigo en python.
 ```bash
 nano Dockerfile
@@ -33,11 +29,17 @@ nano Dockerfile
 ```bash
 nano send.py
 ```
-3. Creamos un --> nano Dockerfile
+# |||||||
+Consumidor:
+```bash
+mkdir consumidor
+```
+Dentro de esta carpeta productor:
+1. Creamos un --> nano Dockerfile
 ```bash
 nano Dockerfile
 ```
-4. Creamos un --> nano receive.py
+2. Creamos un --> nano receive.py
 ```bash
 nano receive.py
 ```
