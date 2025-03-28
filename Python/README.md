@@ -33,7 +33,6 @@ nano Dockerfile
 ```bash
 nano send.py
 ```
-
 3. Creamos un --> nano Dockerfile
 ```bash
 nano Dockerfile
