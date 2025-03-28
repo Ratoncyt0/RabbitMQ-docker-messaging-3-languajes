@@ -9,18 +9,14 @@ import (
 )
 
 func main() {
-	// Obtener variables de entorno
 	rabbitmqHost := os.Getenv("RABBITMQ_HOST")
-	rabbitmqPort := os.Getenv("RABBITMQ_PORT")
-	rabbitmqUser := os.Getenv("RABBITMQ_USER")
-	rabbitmqPass := os.Getenv("RABBITMQ_PASS")
-	queueName := os.Getenv("QUEUE_NAME")
+	if rabbitmqHost == "" {
+		rabbitmqHost = "localhost"
+	}
 
-	// Conectar a RabbitMQ
-	connStr := fmt.Sprintf("amqp://%s:%s@%s:%s/", rabbitmqUser, rabbitmqPass, rabbitmqHost, rabbitmqPort)
-	conn, err := amqp091.Dial(connStr)
+	conn, err := amqp091.Dial("amqp://guest:guest@" + rabbitmqHost + ":5672/")
 	if err != nil {
-		log.Fatalf("Error de conexión a RabbitMQ: %s", err)
+		log.Fatalf("Error al conectar a RabbitMQ: %s", err)
 	}
 	defer conn.Close()
 
@@ -30,22 +26,44 @@ func main() {
 	}
 	defer ch.Close()
 
-	// Declarar la cola
-	_, err = ch.QueueDeclare(queueName, false, false, false, false, nil)
+	queueName := os.Getenv("QUEUE_NAME")
+	if queueName == "" {
+		queueName = "go_queue"
+	}
+
+	q, err := ch.QueueDeclare(
+		queueName,
+		false,
+		false,
+		false,
+		false,
+		nil,
+	)
 	if err != nil {
 		log.Fatalf("Error al declarar la cola: %s", err)
 	}
 
-	// Recibir mensajes
-	msgs, err := ch.Consume(queueName, "", true, false, false, false, nil)
+	msgs, err := ch.Consume(
+		q.Name,
+		"",
+		true,
+		false,
+		false,
+		false,
+		nil,
+	)
 	if err != nil {
-		log.Fatalf("Error al recibir mensajes: %s", err)
+		log.Fatalf("Error al consumir mensajes: %s", err)
 	}
 
-	log.Println("[*] Esperando mensajes. Presiona CTRL+C para salir.")
+	forever := make(chan bool)
 
-	// Leer mensajes de la cola
-	for msg := range msgs {
-		log.Printf("[x] Recibido: %s", msg.Body)
-	}
+	go func() {
+		for d := range msgs {
+			log.Printf("[x] Recibido: %s", d.Body)
+		}
+	}()
+
+	fmt.Println("[*] Esperando mensajes. Presiona CTRL+C para salir.")
+	<-forever
 }
