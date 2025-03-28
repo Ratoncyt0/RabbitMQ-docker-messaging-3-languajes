@@ -1,7 +1,7 @@
 import pika
 
 # Dirección IP o nombre del host de la máquina que corre RabbitMQ
-rabbitmq_host = '10.6.101.98'
+rabbitmq_host = '10.6.101.98'  # IP maquina local
 
 # Conexión al servidor RabbitMQ remoto
 connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host))
