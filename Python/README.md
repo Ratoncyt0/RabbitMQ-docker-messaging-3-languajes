@@ -29,8 +29,7 @@ nano Dockerfile
 ```bash
 nano send.py
 ```
-
-
+    
 CARPETA Consumidor:
 ```bash
 mkdir consumidor
