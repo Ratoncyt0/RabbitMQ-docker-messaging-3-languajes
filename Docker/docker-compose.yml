@@ -22,23 +22,18 @@ services:
 
   Python-subscribe:
     container_name: py-subs
-    image: 'python-consumer'
+    image: 'consumerpy'
 
   GO-subscribe:
-    image: golang:1.22
+    image: golang:1.20
     container_name: go-rabbitmq-consumer
     working_dir: /app
     volumes:
-      - ./GO/go-rabbitmq/go-consumer:/app  # Se monta la carpeta correcta dentro del contenedor
-    command: go run consumer.go
+      - ./go-consumer:/app
+    command: sh -c "go run consumer.go"
     environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PASS=guest
-      - QUEUE_NAME=test_queue
-    depends_on:
-      - rabbitmq
+      RABBITMQ_HOST: 10.6.101.91  # Cambia esto por la IP de la máquina que ejecuta RabbitMQ si lo corres en otra máquina
+      QUEUE_NAME: hello
 
   # Publish default
   JavaScript-publisher:
@@ -50,23 +45,18 @@ services:
 
   Python-publisher:
     container_name: py-pub
-    image: 'python-producer'
+    image: 'sendpy'
     environment:
       - MSG="Hola mundo desde py"
       - IP=127.0.0.1
 
   GO-publisher:
-    image: golang:1.22
+    image: golang:1.20
     container_name: go-rabbitmq-producer
     working_dir: /app
     volumes:
-      - ./GO/go-rabbitmq/go-producer:/app  # Se monta la carpeta correcta dentro del contenedor
-    command: go run producer.go
+      - ./go-producer:/app
+    command: sh -c "go run producer.go"
     environment:
-      - RABBITMQ_HOST=rabbitmq
-      - RABBITMQ_PORT=5672
-      - RABBITMQ_USER=guest
-      - RABBITMQ_PASS=guest
-      - QUEUE_NAME=test_queue
-    depends_on:
-      - rabbitmq
+      RABBITMQ_HOST: 10.6.101.91  # Cambia esto por la IP de la máquina que ejecuta RabbitMQ si lo corres en otra máquina
+      QUEUE_NAME: hello
