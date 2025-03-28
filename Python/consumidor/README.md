@@ -1,15 +1,13 @@
-Por ultimo crea una carpeta python-consumer la cual sera el consumidor final: 
+# Recibir mensajes en mi maquina local 
 
-1.  Crea un archivo consumer.py en en esta carpeta con su respectivo codigo.
-2.  Crea un archivo Dockerfile en el directorio del consumidor Python con su respectivo codigo.
+1. Primero tenemos que crear la imagen con el Dockerfile:
 
-Por ultimo en el directorio del consumidor, ejecuta estos comandos para construir la imagen y ejecutar el contenedor:
-
-
+Para crear una imagen con el dockerfile para este apartado CONSUMIDOR:
 ```bash
-docker build -t python-consumer .
+docker build -t consumerpy .
 ```
+2. Para recibir mensajes de cualquier maquina usando la imagen: 
 ```bash
-docker run --link rabbitmq:rabbitmq python-consumer
+docker run --rm -it consumerpy
 ```
-
+Ya con esto podemos obsevar como recibimos los mensajes
