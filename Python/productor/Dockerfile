@@ -1,21 +1,10 @@
-import pika
+FROM python:3
 
-# Dirección IP o nombre del host de la máquina que corre RabbitMQ
-rabbitmq_host = '10.6.101.98'  #Modificar la IP a la maquina que quiera mandar mensajes
+WORKDIR /usr/src/app
 
-# Conexión al servidor RabbitMQ remoto
-connection = pika.BlockingConnection(pika.ConnectionParameters(host=rabbitmq_host))
-channel = connection.channel()
+#COPY requirements.txt ./
+RUN pip install pika
 
-# Asegurarse de que la cola existe
-channel.queue_declare(queue='hello')
+COPY . .
 
-# Enviar un mensaje a la cola
-channel.basic_publish(exchange='',
-                      routing_key='hello',
-                      body='Hola desde Python de Zamir - SIU!')
-
-print(" [x] Sent 'Hola desde Python de Zamir - SIU!'")
-
-# Cerrar la conexión
-connection.close()
+CMD [ "python", "./send.py" ]
