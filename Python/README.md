@@ -23,10 +23,22 @@ consumidor:
 ```bash
 mkdir consumidor
 ```
-# Carpeta Productor 
-1. Creamos un --> nano Dockerfile
-2. Creamos un --> nano send.py
+Dentro de cada carpeta creamos los sigueintes archivos: 
 
-# Carpeta Consumidor 
-1. Creamos un --> nano Dockerfile
-2. Creamos un --> nano receive.py
+1. Creamos un --> nano Dockerfile con su respectivo codigo en python.
+```bash
+nano Dockerfile
+```
+2. Creamos un --> nano send.py con su respectivo codigo en python.
+```bash
+nano send.py
+```
+
+3. Creamos un --> nano Dockerfile
+```bash
+nano Dockerfile
+```
+4. Creamos un --> nano receive.py
+```bash
+nano receive.py
+```
