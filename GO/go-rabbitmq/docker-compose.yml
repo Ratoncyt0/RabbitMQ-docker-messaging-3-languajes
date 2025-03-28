@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"   # Puerto estándar para conexión RabbitMQ
+      - "15672:15672" # Puerto para la interfaz de administración
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    
+  producer:
+    image: golang:1.20
+    container_name: go-rabbitmq-producer
+    working_dir: /app
+    volumes:
+      - ./go-producer:/app
+    command: sh -c "go run producer.go"
+    environment:
+      RABBITMQ_HOST: 10.6.101.91  # Cambia esto por la IP de la máquina que ejecuta RabbitMQ si lo corres en otra máquina
+      QUEUE_NAME: hello
+
+  consumer:
+    image: golang:1.20
+    container_name: go-rabbitmq-consumer
+    working_dir: /app
+    volumes:
+      - ./go-consumer:/app
+    command: sh -c "go run consumer.go"
+    environment:
+      RABBITMQ_HOST: 10.6.101.91  # Cambia esto por la IP de la máquina que ejecuta RabbitMQ si lo corres en otra máquina
+      QUEUE_NAME: hello
