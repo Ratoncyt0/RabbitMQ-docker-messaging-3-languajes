@@ -1,16 +1,18 @@
+# Enviar mensajes a otras maquinas 
 
-Crea una carpeta python-producer en tu directorio y alli agrega:
+1. Primero tenemos que crear la imagen con el Dockerfile:
 
-1. Crea un archivo producer.py y agrega su respectivo codigo.
-
-2. En el mismo directorio, crea un archivo Dockerfile para el productor Python con su respectivo codigo.
-
-
-En el directorio donde tienes el Dockerfile, ejecuta estos comandos para construir la imagen y ejecutar los contenedores:
-
+Para crear una imagen con el dockerfile para este apartado PRODUCTOR:
 ```bash
-docker build -t python-producer .
+docker build -t sendpy .
 ```
+2. Para enviar mensajes a cualquier maquina usando la imagen: 
 ```bash
-docker run --link rabbitmq:rabbitmq python-producer
+python send.py
 ```
+Ya con esto enviamos el mensaje y en consola nos sale el mensaje que enviamos. 
+
+# Modificar mensaje y IP de la maquina a enviar
+
+1. 
+2. 
