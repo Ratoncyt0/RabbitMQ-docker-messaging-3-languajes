@@ -1,3 +1,4 @@
+# Este compose es solamente para testing y no deberia usarse como parte de ninguno de los despliegues
 version: '3.8'
 
 services:
