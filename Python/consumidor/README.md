@@ -10,4 +10,4 @@ docker build -t consumerpy .
 ```bash
 docker run --rm -it consumerpy
 ```
-Ya con esto podemos obsevar como recibimos los mensajes
+Ya con esto podemos obsevar como recibimos los mensajes.
