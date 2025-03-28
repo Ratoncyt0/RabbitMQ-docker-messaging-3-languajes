@@ -1,8 +1,8 @@
 # RabbitMQ-docker-messaging-Python
 
-# Crea y ejecuta RabbitMQ con doker
+# Ejecuta RabbitMQ con doker
 
-En el directorio de tu elección:
+En el directorio de tu elección, crea y ejecuta:
 
 ```bash
 docker pull rabbitmq:management
