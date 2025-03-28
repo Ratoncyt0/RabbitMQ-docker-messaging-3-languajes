@@ -44,5 +44,6 @@ nano Dockerfile
 ```bash
 nano receive.py
 ```
-
+# Uso en las carpetas
+Para el uso, ir a las carpetas productor y consumidor donde encontraras el codigo. 
 
